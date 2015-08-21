@@ -483,7 +483,7 @@ public class ZAProxy extends AbstractDescribableImpl<ZAProxy> implements Seriali
 	 * @throws IOException 
 	 * @throws IllegalArgumentException 
 	 */
-	public void startZAP(AbstractBuild<?, ?> build, BuildListener listener, Launcher launcher) 
+	public ClientApi startZAP(AbstractBuild<?, ?> build, BuildListener listener, Launcher launcher)
 			throws IllegalArgumentException, IOException, InterruptedException {
 		checkParams(build, listener);
 		
@@ -537,6 +537,8 @@ public class ZAProxy extends AbstractDescribableImpl<ZAProxy> implements Seriali
 		
 		// Call waitForSuccessfulConnectionToZap(int, BuildListener) remotely
 		build.getWorkspace().act(new WaitZAProxyInitCallable(this, listener));
+
+		return new ClientApi(zapProxyHost, zapProxyPort);
 	}
 	
 	/**
@@ -871,7 +873,7 @@ public class ZAProxy extends AbstractDescribableImpl<ZAProxy> implements Seriali
 	 * @param listener the listener to display log during the job execution in jenkins
 	 * @throws ClientApiException 
 	 */
-	private void stopZAP(ClientApi zapClientAPI, BuildListener listener) throws ClientApiException {
+	public void stopZAP(ClientApi zapClientAPI, BuildListener listener) throws ClientApiException {
 		if (zapClientAPI != null) {
 			listener.getLogger().println("Shutdown ZAProxy");
 			//throw new ClientApiException("Exception lancee dans stopZAP");

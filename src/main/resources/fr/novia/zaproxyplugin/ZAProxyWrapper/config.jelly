@@ -1,0 +1,13 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:entry title="${%Override ZAProxy host}" field="zapProxyHost"
+             description="Default Host is : ${descriptor.zapProxyDefaultHost} (${%Configured in admin mode})">
+        <f:textbox clazz="required" default="${descriptor.zapProxyDefaultHost}" />
+    </f:entry>
+
+    <f:entry title="${%Override ZAProxy port}" field="zapProxyPort"
+             description="Default Port is : ${descriptor.zapProxyDefaultPort} (${%Configured in admin mode})">
+        <f:number default="${descriptor.zapProxyDefaultPort}" clazz="required positive-number" />
+    </f:entry>
+	<f:property field="zaproxy" />
+</j:jelly>
